@@ -181,6 +181,7 @@ export default defineConfig(({ mode }) => ({
         ]
       },
       workbox: {
+        type: 'module',
         globPatterns: [
           '**/*.{js,css,html,ico,png,svg,json,woff2,ttf}'
         ],
