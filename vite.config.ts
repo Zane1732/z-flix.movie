@@ -9,7 +9,6 @@ import pkg from './package.json';
 
 declare const self: ServiceWorkerGlobalScope;
 
-// Define types for response data
 interface TMDBResponse {
   error?: {
     message: string;
@@ -17,10 +16,8 @@ interface TMDBResponse {
   data: unknown;
 }
 
-// Cache version based on package version
 const CACHE_VERSION = `v${pkg.version}`;
 
-// Cache names with versioning
 const CACHE_NAMES = {
   pages: `pages-cache-${CACHE_VERSION}`,
   static: `static-assets-${CACHE_VERSION}`,
@@ -31,7 +28,6 @@ const CACHE_NAMES = {
   googleApis: `google-apis-${CACHE_VERSION}`
 };
 
-// Import RuntimeCaching type from the workbox-build module
 import type { RuntimeCaching } from 'workbox-build';
 
 export default defineConfig(({ mode }) => ({
@@ -45,11 +41,9 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Increase the warning limit to reduce unnecessary warnings
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-        // Implement manual chunks to better organize and optimize bundle size
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'ui-components': [
@@ -121,56 +115,16 @@ export default defineConfig(({ mode }) => ({
         start_url: '/',
         orientation: 'any',
         icons: [
-          {
-            "src": "icons/icon-48x48.png",
-            "sizes": "48x48",
-            "type": "image/png"
-          },
-          {
-            "src": "icons/icon-72x72.png",
-            "sizes": "72x72",
-            "type": "image/png"
-          },
-          {
-            "src": "icons/icon-96x96.png",
-            "sizes": "96x96",
-            "type": "image/png"
-          },
-          {
-            "src": "icons/icon-128x128.png",
-            "sizes": "128x128",
-            "type": "image/png"
-          },
-          {
-            "src": "icons/icon-144x144.png",
-            "sizes": "144x144",
-            "type": "image/png"
-          },
-          {
-            "src": "icons/icon-152x152.png",
-            "sizes": "152x152",
-            "type": "image/png"
-          },
-          {
-            "src": "icons/icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-          },
-          {
-            "src": "icons/icon-256x256.png",
-            "sizes": "256x256",
-            "type": "image/png"
-          },
-          {
-            "src": "icons/icon-384x384.png",
-            "sizes": "384x384",
-            "type": "image/png"
-          },
-          {
-            "src": "icons/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-          }
+          { "src": "icons/icon-48x48.png", "sizes": "48x48", "type": "image/png" },
+          { "src": "icons/icon-72x72.png", "sizes": "72x72", "type": "image/png" },
+          { "src": "icons/icon-96x96.png", "sizes": "96x96", "type": "image/png" },
+          { "src": "icons/icon-128x128.png", "sizes": "128x128", "type": "image/png" },
+          { "src": "icons/icon-144x144.png", "sizes": "144x144", "type": "image/png" },
+          { "src": "icons/icon-152x152.png", "sizes": "152x152", "type": "image/png" },
+          { "src": "icons/icon-192x192.png", "sizes": "192x192", "type": "image/png" },
+          { "src": "icons/icon-256x256.png", "sizes": "256x256", "type": "image/png" },
+          { "src": "icons/icon-384x384.png", "sizes": "384x384", "type": "image/png" },
+          { "src": "icons/icon-512x512.png", "sizes": "512x512", "type": "image/png" }
         ],
         screenshots: [
           {
@@ -181,13 +135,11 @@ export default defineConfig(({ mode }) => ({
         ]
       },
       workbox: {
-        type: 'module',
         globPatterns: [
           '**/*.{js,css,html,ico,png,svg,json,woff2,ttf}'
         ],
         maximumFileSizeToCacheInBytes: 5000000,
         runtimeCaching: [
-          // SPA Navigation Routes
           {
             urlPattern: ({ request }: { request: Request }) => request.mode === 'navigate',
             handler: 'NetworkFirst',
@@ -214,8 +166,7 @@ export default defineConfig(({ mode }) => ({
                     const cache = await self.caches.open(CACHE_NAMES.pages);
                     const response = await cache.match('/offline.html');
                     if (response) return response;
-                    
-                    // If offline.html is not in cache, try to fetch it
+
                     const offlineResponse = await fetch('/offline.html');
                     if (offlineResponse.ok) {
                       await cache.put('/offline.html', offlineResponse.clone());
@@ -230,7 +181,6 @@ export default defineConfig(({ mode }) => ({
               }]
             }
           },
-          // Static Assets
           {
             urlPattern: /\.(css|js|woff2|ttf)$/i,
             handler: 'CacheFirst',
@@ -238,7 +188,7 @@ export default defineConfig(({ mode }) => ({
               cacheName: CACHE_NAMES.static,
               expiration: {
                 maxEntries: 200,
-                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
+                maxAgeSeconds: 30 * 24 * 60 * 60
               },
               cacheableResponse: {
                 statuses: [0, 200]
@@ -252,14 +202,13 @@ export default defineConfig(({ mode }) => ({
               cacheName: CACHE_NAMES.images,
               expiration: {
                 maxEntries: 500,
-                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
+                maxAgeSeconds: 30 * 24 * 60 * 60
               },
               cacheableResponse: {
                 statuses: [0, 200]
               },
               plugins: [{
                 handlerDidError: async ({ request }: { request: Request }) => {
-                  // Return placeholder image on error
                   const cache = await self.caches.open(CACHE_NAMES.static);
                   return cache.match('/placeholder.svg');
                 }
@@ -274,7 +223,7 @@ export default defineConfig(({ mode }) => ({
               networkTimeoutSeconds: 3,
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 1 * 24 * 60 * 60
+                maxAgeSeconds: 86400
               },
               plugins: [{
                 cacheWillUpdate: async ({ response }: { response: Response }) => {
@@ -282,7 +231,6 @@ export default defineConfig(({ mode }) => ({
                     try {
                       const clonedResponse = response.clone();
                       const data = await clonedResponse.json() as TMDBResponse;
-                      // Only cache successful responses without errors
                       if (data && !data.error) {
                         return response;
                       }
@@ -302,7 +250,7 @@ export default defineConfig(({ mode }) => ({
               cacheName: CACHE_NAMES.tmdbImages,
               expiration: {
                 maxEntries: 500,
-                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
+                maxAgeSeconds: 30 * 24 * 60 * 60
               },
               cacheableResponse: {
                 statuses: [0, 200]
@@ -312,7 +260,6 @@ export default defineConfig(({ mode }) => ({
               },
               plugins: [{
                 handlerDidError: async () => {
-                  // Return placeholder image on error
                   const cache = await self.caches.open(CACHE_NAMES.static);
                   return cache.match('/placeholder.svg');
                 }
@@ -320,11 +267,10 @@ export default defineConfig(({ mode }) => ({
             }
           },
           {
-            urlPattern: ({ url }: { url: URL }) => {
-              return url.hostname.includes('firestore.googleapis.com') ||
-                     url.hostname.includes('firebase.googleapis.com') ||
-                     url.hostname.includes('firebaseio.com');
-            },
+            urlPattern: ({ url }: { url: URL }) =>
+              url.hostname.includes('firestore.googleapis.com') ||
+              url.hostname.includes('firebase.googleapis.com') ||
+              url.hostname.includes('firebaseio.com'),
             handler: 'NetworkOnly',
             options: {
               plugins: [{
@@ -342,7 +288,7 @@ export default defineConfig(({ mode }) => ({
               networkTimeoutSeconds: 3,
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 // 1 hour
+                maxAgeSeconds: 3600
               },
               plugins: [{
                 handlerDidError: async ({ request }: { request: Request }) => {
@@ -365,7 +311,6 @@ export default defineConfig(({ mode }) => ({
       },
       devOptions: {
         enabled: true,
-        type: 'module',
         navigateFallback: 'index.html'
       }
     })
