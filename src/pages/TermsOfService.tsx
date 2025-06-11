@@ -63,7 +63,7 @@ const TermsOfService = () => {
 
             <div className="bg-white/5 border border-white/10 rounded-lg p-4 mt-6">
               <p className="text-white/80">
-                Last updated: March 26, 2025
+                Last updated: jun 11, 2025
               </p>
             </div>
           </CardContent>
