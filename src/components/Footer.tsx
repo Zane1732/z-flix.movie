@@ -159,35 +159,35 @@ const Footer = () => {
           <FooterSection title="Connect" id="connect">
             <div className="flex flex-wrap gap-2">
               <a 
-                href="https://github.com/chintan992" 
+                href="https://zane-lol.vercel.app/" 
                 className="bg-white/5 hover:bg-accent/20 hover:scale-105 p-2 rounded-full transition-all duration-200"
                 aria-label="GitHub"
               >
                 <Github className="h-5 w-5 text-white" />
               </a>
               <a 
-                href="https://x.com/sid992r" 
+                href="https://byzanebio.vercel.app/" 
                 className="bg-white/5 hover:bg-accent/20 hover:scale-105 p-2 rounded-full transition-all duration-200"
                 aria-label="Twitter"
               >
                 <Twitter className="h-5 w-5 text-white" />
               </a>
               <a 
-                href="https://facebook.com/chintan992" 
+                href="https://zaneflix.vercel.app/" 
                 className="bg-white/5 hover:bg-accent/20 hover:scale-105 p-2 rounded-full transition-all duration-200"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5 text-white" />
               </a>
               <a 
-                href="https://instagram.com/chintan992" 
+                href="https://instagram.com/zane_ox0" 
                 className="bg-white/5 hover:bg-accent/20 hover:scale-105 p-2 rounded-full transition-all duration-200"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5 text-white" />
               </a>
               <a 
-                href="mailto:chintanr21@gmail.com" 
+                href="https://zaneflix.vercel.app/" 
                 className="bg-white/5 hover:bg-accent/20 hover:scale-105 p-2 rounded-full transition-all duration-200"
                 aria-label="Email"
               >
