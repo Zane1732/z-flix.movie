@@ -79,12 +79,12 @@ const Footer = () => {
           {/* About Section */}
           <FooterSection title="Let's Stream V2.0" id="about">
             <p className="text-white/70 text-sm mb-4">
-              Discover and enjoy the best movies and TV shows all in one place. Let's Stream V2.0 helps you find, explore, and watch your favorite content online.
+              Discover and enjoy the best movies and TV shows all in one place. Z-flix helps you find, explore, and watch your favorite content online.
             </p>
             {isMobile && (
               <div className="flex items-center mb-2">
                 <Smartphone className="h-4 w-4 text-accent mr-2" />
-                <span className="text-white/70 text-xs">Download our mobile app</span>
+                <span className="text-white/70 text-xs">share it</span>
               </div>
             )}
           </FooterSection>
