@@ -53,7 +53,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '' }) => {
           WebkitTextFillColor: isHovered ? 'transparent' : 'inherit',
           filter: isHovered ? 'drop-shadow(0 0 1px rgba(currentColor, 0.3))' : 'none',
         }}>
-          L
+          Z
         </span>
         <span style={{
           marginLeft: '-0.15em',
@@ -65,7 +65,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '' }) => {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: isHovered ? 'transparent' : 'inherit',
         }}>
-          S
+          FLIX
         </span>
       </span>
       <span 
